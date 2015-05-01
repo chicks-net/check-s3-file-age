@@ -19,5 +19,11 @@ nytprof.out
 *.bs
 /_eumm/
 
+# vim swap files
+*.sw[p-z]
+
+# perltidy temporary files
+*.tdy
+
 # nagios test
 utils.pm
