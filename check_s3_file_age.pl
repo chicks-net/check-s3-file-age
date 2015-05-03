@@ -19,7 +19,8 @@ my (
 	
 );
 my $VERSION = '0.5';
-my ($message, $age, $size, $st);
+my $PRENAG = "S3_FILE_AGE:";
+my ($age, $size, $st);
 
 # options processing
 Getopt::Long::Configure('bundling');
@@ -54,7 +55,7 @@ my $aws_secret_key = $opt_s || $ENV{"AWS_SECRET_KEY"};
 
 unless (defined $aws_access_key and defined $aws_secret_key) {
 	print_help();
-	print "\nERROR: did not provide AWS access creds";
+	print "\nERROR: did not provide AWS access creds\n";
 	exit $ERRORS{'OK'};
 }
 
@@ -62,7 +63,7 @@ unless (defined $aws_access_key and defined $aws_secret_key) {
 my $bucket_name = $opt_n;
 unless (defined $bucket_name) {
 	print_help();
-	print "\nERROR: did not provide required S3 bucket name";
+	print "\nERROR: did not provide required S3 bucket name\n";
 	exit $ERRORS{'OK'};
 }
 
@@ -70,7 +71,7 @@ unless (defined $bucket_name) {
 my $s3_file_name = $opt_f;
 unless (defined $s3_file_name) {
 	print_help();
-	print "\nERROR: did not provide required S3 file name";
+	print "\nERROR: did not provide required S3 file name\n";
 	exit $ERRORS{'OK'};
 }
 
@@ -81,11 +82,20 @@ my $result = 'OK';
 
 my $s3 = Net::Amazon::S3->new(
     {
-        aws_access_key_id     => $aws_access_key,
-        aws_secret_access_key => $aws_secret_key,
-        retry                 => 1,
+	aws_access_key_id     => $aws_access_key,
+	aws_secret_access_key => $aws_secret_key,
+#	use_iam_role          => 1,
+	retry                 => 1,
     }
 );
+
+# check bucket name
+my $response = $s3->buckets;
+my %my_buckets = map { ($_,1) } @{ $response->{buckets} };
+unless ( defined $my_buckets{ $bucket_name } ) {
+	print "$PRENAG no bucket '$bucket_name' owned by this user.\n";
+	exit $ERRORS{$result};
+}
 
 exit $ERRORS{$result};
 
