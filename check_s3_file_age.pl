@@ -18,7 +18,7 @@ my (
 	
 );
 my $VERSION = '0.5';
-my ($result, $message, $age, $size, $st);
+my ($message, $age, $size, $st);
 
 # options processing
 Getopt::Long::Configure('bundling');
@@ -47,7 +47,13 @@ if ($opt_h) {
 	exit $ERRORS{'OK'};
 }
 
-#exit $ERRORS{$result};
+# TODO: validate AWS creds or ignore them
+
+#
+# actually check something
+#
+my $result = 'OK';
+exit $ERRORS{$result};
 
 #
 # subroutines
