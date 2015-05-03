@@ -68,7 +68,8 @@ sub print_help () {
 	print "  -i | --ignore-missing :  return OK if the file does not exist\n";
 	print "  <secs>  File must be no more than this many seconds old (default: warn 240 secs, crit 600)\n";
 	print "  <size>  File must be at least this many bytes long (default: crit 0 bytes)\n";
-	print "  <access-key> and <secret-key> are optional if you have defined environment varibles AWS_SECRET_KEY and AWS_ACCESS_KEY\n";
+	print "  <access-key> is optional if you have the environment variables AWS_ACCESS_KEY defined\n";
+	print "  <secret-key> is optional if you have the nvironment variables AWS_SECRET_KEY defined\n";
 	print "\n";
 	support();
 }
