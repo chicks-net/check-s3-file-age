@@ -48,12 +48,45 @@ if ($opt_h) {
 	exit $ERRORS{'OK'};
 }
 
-# TODO: validate AWS creds or ignore them
+# validate AWS creds
+my $aws_access_key = $opt_k || $ENV{"AWS_ACCESS_KEY"};
+my $aws_secret_key = $opt_s || $ENV{"AWS_SECRET_KEY"};
+
+unless (defined $aws_access_key and defined $aws_secret_key) {
+	print_help();
+	print "\nERROR: did not provide AWS access creds";
+	exit $ERRORS{'OK'};
+}
+
+# validate bucket
+my $bucket_name = $opt_n;
+unless (defined $bucket_name) {
+	print_help();
+	print "\nERROR: did not provide required S3 bucket name";
+	exit $ERRORS{'OK'};
+}
+
+# validate bucket
+my $s3_file_name = $opt_f;
+unless (defined $s3_file_name) {
+	print_help();
+	print "\nERROR: did not provide required S3 file name";
+	exit $ERRORS{'OK'};
+}
 
 #
 # actually check something
 #
 my $result = 'OK';
+
+my $s3 = Net::Amazon::S3->new(
+    {
+        aws_access_key_id     => $aws_access_key,
+        aws_secret_access_key => $aws_secret_key,
+        retry                 => 1,
+    }
+);
+
 exit $ERRORS{$result};
 
 #
