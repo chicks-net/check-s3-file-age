@@ -1,6 +1,11 @@
 # check-s3-file-age
 
-nagios check for AWS S3 file age
+nagios check for age of a specific file in AWS S3
+
+## requirementso
+
+* Perl modules
+    * [Net::Amazon::S3](https://metacpan.org/release/Net-Amazon-S3) (debian package`libnet-amazon-s3-perl`)
 
 ## acknoledgements
 

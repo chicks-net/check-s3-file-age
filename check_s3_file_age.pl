@@ -7,6 +7,7 @@ use Getopt::Long;
 use utils qw (%ERRORS &print_revision &support);
 use lib "/usr/local/nagios/libexec" ;
 use vars qw($PROGNAME);
+use Net::Amazon::S3;
 
 sub print_help ();
 sub print_usage ();
