@@ -8,6 +8,7 @@ use utils qw (%ERRORS &print_revision &support);
 use lib "/usr/local/nagios/libexec" ;
 use vars qw($PROGNAME);
 use Net::Amazon::S3;
+use Data::Dumper;
 
 sub print_help ();
 sub print_usage ();
@@ -20,7 +21,6 @@ my (
 );
 my $VERSION = '0.5';
 my $PRENAG = "S3_FILE_AGE:";
-my ($age, $size, $st);
 
 # options processing
 Getopt::Long::Configure('bundling');
@@ -90,14 +90,33 @@ my $s3 = Net::Amazon::S3->new(
 );
 
 # check bucket name
-my $response = $s3->buckets;
-my %my_buckets = map { ($_->bucket,1) } @{ $response->{buckets} };
-unless ( defined $my_buckets{ $bucket_name } ) {
+my $bucket = $s3->bucket($bucket_name);
+
+unless (defined $bucket) {
 	print "$PRENAG no bucket '$bucket_name' owned by this user.\n";
 	$result = 'CRITICAL';
 	exit $ERRORS{$result};
 }
 
+#print "DEBUG using " . $bucket->bucket . "\n";
+
+# check file
+my $file_response = $bucket->get_key($s3_file_name);
+unless ($file_response) {
+	my $message = "$PRENAG: no such file $bucket_name/$s3_file_name";
+	print $message . "\n";
+	$result = 'CRITICAL';
+	exit $ERRORS{$result};
+}
+
+#print Dumper($file_response);
+#print join(', ', keys %$file_response), "\n";
+my $size = $file_response->{content_length};
+print "size=$size\n";
+my $age = $file_response->{'date'};
+print "age=$age\n";
+
+# last exit
 exit $ERRORS{$result};
 
 #
