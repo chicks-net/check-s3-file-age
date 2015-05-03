@@ -91,9 +91,10 @@ my $s3 = Net::Amazon::S3->new(
 
 # check bucket name
 my $response = $s3->buckets;
-my %my_buckets = map { ($_,1) } @{ $response->{buckets} };
+my %my_buckets = map { ($_->bucket,1) } @{ $response->{buckets} };
 unless ( defined $my_buckets{ $bucket_name } ) {
 	print "$PRENAG no bucket '$bucket_name' owned by this user.\n";
+	$result = 'CRITICAL';
 	exit $ERRORS{$result};
 }
 
