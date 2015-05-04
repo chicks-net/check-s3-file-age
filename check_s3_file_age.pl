@@ -4,8 +4,9 @@ use warnings;
 use strict;
 use English;
 use Getopt::Long;
-use utils qw (%ERRORS &print_revision &support);
 use lib "/usr/local/nagios/libexec" ;
+use lib '/usr/lib/nagios/plugins' ;
+use utils qw (%ERRORS &print_revision &support);
 use vars qw($PROGNAME);
 use Net::Amazon::S3;
 use Data::Dumper;
@@ -20,7 +21,7 @@ my (
 	$opt_k, $opt_s, $opt_n
 	
 );
-my $VERSION = '0.5';
+our $VERSION = '0.6';
 my $PRENAG = "S3_FILE_AGE:";
 
 # options processing
