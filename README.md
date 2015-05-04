@@ -23,7 +23,7 @@ nagios check for age of a specific file in AWS S3
 
 ## examples
 
-Look in `s3bucket` for a file named `foo`.  Warn if the files is smaller than 100000 bytes
+Look in `s3bucket` for a file named `foo`.  Warn if the file is smaller than 100000 bytes
 and go critical if the file is less than 50.
 
 	check_s3_file_age.pl -n s3bucket -f foo -W 100000 -C 50
