@@ -9,6 +9,7 @@ use lib "/usr/local/nagios/libexec" ;
 use vars qw($PROGNAME);
 use Net::Amazon::S3;
 use Data::Dumper;
+use Date::Parse;
 
 sub print_help ();
 sub print_usage ();
@@ -110,11 +111,27 @@ unless ($file_response) {
 }
 
 #print Dumper($file_response);
-#print join(', ', keys %$file_response), "\n";
+#print "KEYS:", join(', ', keys %$file_response), "\n";
+#foreach my $fld (qw(date last-modified client-date content_length )) {
+#	my $value = $file_response->{$fld} || 'undef';
+#	print "$fld\t= $value\n";
+#}
+
 my $size = $file_response->{content_length};
-print "size=$size\n";
-my $age = $file_response->{'date'};
+#print "size=$size\ncrit=$opt_C\nwarn=$opt_W\n";
+
+if ($opt_C and $size < $opt_C) {
+#	warn "size crit";
+	$result = 'CRITICAL';
+} elsif ($opt_W and $size < $opt_W) {
+#	warn "size warn";
+	$result = 'WARNING';
+}
+
+my $age = $file_response->{'last-modified'};
 print "age=$age\n";
+
+print "exit with $result\n";
 
 # last exit
 exit $ERRORS{$result};
