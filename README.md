@@ -35,10 +35,11 @@ and go critical if the file is older than 8 days.
 
 	check_s3_file_age.pl -n s3bucket -f foo -C 50000000 -w 6d -c 8d
 
-## requirementso
+## requirements
 
 * Perl modules
     * [Net::Amazon::S3](https://metacpan.org/release/Net-Amazon-S3) (debian package`libnet-amazon-s3-perl`)
+    * `utils.pm` from [nagios-plugins.org](https://github.com/nagios-plugins/nagios-plugins)
 
 ## acknoledgements
 
@@ -51,3 +52,4 @@ and go critical if the file is older than 8 days.
 * [check_read_only_fs](https://github.com/chicks-net/nagios-current/tree/master/plugins) - checks for readonly filesystems
 * [nagios-current](https://github.com/chicks-net/nagios-current/) - automatically restart nagios when configs change
 * [nagios-plugins](https://github.com/PerfectAudience/nagios-plugins) - our collection of Perl and x86_64 nagios plugins
+* [nagios-plugins.org](https://github.com/nagios-plugins/nagios-plugins)
