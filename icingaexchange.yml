@@ -1,7 +1,7 @@
 name: check-s3-file-age
 description: "file:///README.md"
 url: "https://github.com/chicks-net/check-s3-file-age"
-tags: aws, s3, file age
+tags: aws, s3
 vendor: Linux
 target: Storage
 type: Plugin
