@@ -21,7 +21,7 @@ my (
 	$opt_k, $opt_s, $opt_n
 	
 );
-our $VERSION = '0.6';
+our $VERSION = '0.7';
 my $PRENAG = "S3_FILE_AGE:";
 
 # options processing

@@ -1,0 +1,18 @@
+name: check-s3-file-age
+description: "file:///README.md"
+url: "https://github.com/chicks-net/check-s3-file-age"
+tags: aws, s3, file age
+vendor: Linux
+target: Storage
+type: Plugin
+license: gplv2
+releases: 
+  - 
+    name: 0.7
+    description: "0.7 Release"
+    files: 
+      - 
+        name: check_s3_file_age.pl
+        url: "file:///check_s3_file_age.pl"
+        description: "release for exchange.icinga.org"
+        checksum: 84c3251a073d4634050146ddbfcfb860 
