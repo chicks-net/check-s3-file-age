@@ -1,8 +1,8 @@
 name: check-s3-file-age
 description: "file:///README.md"
 url: "https://github.com/chicks-net/check-s3-file-age"
-tags: ~
-vendor: Linux
+tags: Age
+vendor: Amazon
 target: Storage
 type: Plugin
 license: gplv2
