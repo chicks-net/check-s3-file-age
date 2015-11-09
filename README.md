@@ -41,7 +41,7 @@ and go critical if the file is older than 8 days.
     * [Net::Amazon::S3](https://metacpan.org/release/Net-Amazon-S3) (debian package`libnet-amazon-s3-perl`)
     * `utils.pm` from [nagios-plugins.org](https://github.com/nagios-plugins/nagios-plugins)
 
-## acknoledgements
+## acknowledgements
 
 * [Matthew McMillan](http://matthewcmcmillan.blogspot.com/2013/05/monitor-s3-file-ages-with-nagios.html) wrote [check_s3_file_age.py](https://github.com/matt448/nagios-checks) but it does not check one specific file -- it looks at a directory of files.
 * [Hari Sekhon's](http://exchange.nagios.org/directory/Plugins/Cloud/check_aws_s3_file-2Epl-%28Advanced-Nagios-Plugins-Collection%29/details) [check_aws_s3_file.pl](https://github.com/harisekhon/nagios-plugins/blob/master/check_aws_s3_file.pl) looks at one specific file, but it does not check file age.
