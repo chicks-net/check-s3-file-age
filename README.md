@@ -21,8 +21,8 @@ nagios check for age of a specific file in AWS S3
 	  -i | --ignore-missing :  return OK if the file does not exist
 	  <secs>  File must be no more than this many seconds old (default: warn 240 secs, crit 600)
 	  <size>  File must be at least this many bytes long (default: crit 0 bytes)
-	  <access-key> is optional if you have the environment variables AWS_ACCESS_KEY defined
-	  <secret-key> is optional if you have the nvironment variables AWS_SECRET_KEY defined
+	  <access-key> is optional if you have the environment variable AWS_ACCESS_KEY defined
+	  <secret-key> is optional if you have the environment variable AWS_SECRET_KEY defined
 
 ## examples
 
