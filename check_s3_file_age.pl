@@ -18,7 +18,7 @@ sub print_usage ();
 $PROGNAME="check_s3_file_age";
 my (
 	$opt_c, $opt_f, $opt_w, $opt_C, $opt_W, $opt_h, $opt_V, $opt_i,
-	$opt_k, $opt_s, $opt_n
+	$opt_k, $opt_s, $opt_n, $opt_e
 	
 );
 our $VERSION = '0.7';
@@ -34,6 +34,7 @@ GetOptions(
 	"accesskey|k=s"	=> \$opt_k, "AWS-access-key"	=> \$opt_k,
 	"secretkey|s=s"	=> \$opt_s, "AWS-secret-key"	=> \$opt_s,
 	"bucket|n=s"	=> \$opt_n, "S3-bucket-name"	=> \$opt_n,
+	"host|e=s"	=> \$opt_e, "S3-Endpoint-host"	=> \$opt_e,
 	"f=s"		=> \$opt_f, "file"		=> \$opt_f,
 	"w=s"		=> \$opt_w, "warning-age=f"	=> \$opt_w,
 	"W=f"		=> \$opt_W, "warning-size=f"	=> \$opt_W,
@@ -69,12 +70,18 @@ unless (defined $bucket_name) {
 	exit $ERRORS{'OK'};
 }
 
-# validate bucket
+# validate object
 my $s3_file_name = $opt_f;
 unless (defined $s3_file_name) {
 	print_help();
 	print "\nERROR: did not provide required S3 file name\n";
 	exit $ERRORS{'OK'};
+}
+
+# validate endpoint
+my $s3_endpoint_host = $opt_e;
+unless (defined $s3_endpoint_host) {
+  $s3_endpoint_host = "s3.amazonaws.com"
 }
 
 #
@@ -84,12 +91,14 @@ my $result = 'OK';
 my $nagios_text = '';
 
 my $s3 = Net::Amazon::S3->new(
-    {
-	aws_access_key_id     => $aws_access_key,
-	aws_secret_access_key => $aws_secret_key,
-#	use_iam_role          => 1,
-	retry                 => 1,
-    }
+  {
+    aws_access_key_id     => $aws_access_key,
+    aws_secret_access_key => $aws_secret_key,
+    # use_iam_role          => 1,
+    retry                 => 1,
+    host                  => $s3_endpoint_host,
+    secure                => 1,
+  }
 );
 
 # check bucket name
@@ -165,7 +174,7 @@ exit $ERRORS{$result};
 
 sub print_usage () {
 	print "Usage:\n";
-	print "  $PROGNAME [-w <secs>] [-c <secs>] [-W <size>] [-C <size>] [-i] [-k <access-key>] [-s <secret-key>] -n <bucket-name> -f <file>\n";
+	print "  $PROGNAME [-w <secs>] [-c <secs>] [-W <size>] [-C <size>] [-i] [-k <access-key>] [-s <secret-key>] [-e <S3 host:port>] -n <bucket-name> -f <file>\n";
 	print "  $PROGNAME [-h | --help]\n";
 	print "  $PROGNAME [-V | --version]\n";
 }
