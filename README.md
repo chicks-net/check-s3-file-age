@@ -54,6 +54,5 @@ and go critical if the file is older than 8 days.
 
 * [check_read_only_fs](https://github.com/chicks-net/nagios-current/tree/master/plugins) - checks for readonly filesystems
 * [nagios-current](https://github.com/chicks-net/nagios-current/) - automatically restart nagios when configs change
-* [nagios-plugins](https://github.com/PerfectAudience/nagios-plugins) - our collection of Perl and x86_64 nagios plugins
 * [nagios-plugins.org](https://github.com/nagios-plugins/nagios-plugins)
-* [exchange.icinga.org](https://exchange.icinga.com/chicks/check-s3-file-age) - this module registered
+* [exchange.icinga.com](https://exchange.icinga.com/chicks/check-s3-file-age) - this module registered
