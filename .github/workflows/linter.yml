@@ -16,10 +16,11 @@ jobs:
       contents: read
       packages: read
       statuses: write
+      pull-requests: write
 
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v4
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
         with:
           # Full git history is needed to get a proper list of changed files
           # within `super-linter`.
@@ -27,7 +28,7 @@ jobs:
           persist-credentials: false
 
       - name: Lint Code Base
-        uses: super-linter/super-linter@v8
+        uses: super-linter/super-linter@4ce20838b8ab83717e78138c5b3a1407148e0918 # v8.7.0
         env:
           # Only lint new/changed files (requires full git history above).
           VALIDATE_ALL_CODEBASE: false
